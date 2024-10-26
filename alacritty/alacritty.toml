@@ -1,0 +1,5 @@
+[window]
+blur = true
+dynamic_title = false
+opacity = 0.9
+title = "Alacritty"

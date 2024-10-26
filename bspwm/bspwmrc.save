@@ -1,0 +1,35 @@
+#! /bin/sh
+
+#set monitor positions resolutions etc.
+xrandr --output DP-2 --primary --mode 2560x1440 --rotate normal --output HDMI-0 --mode 1920x1080 --rotate normal --left-of DP-2
+
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor DP-2 -d 1 2 3 4 5 
+bspc monitor HDMI-0 -d 6 7 8 9
+
+bspc config border_width         3
+bspc config window_gap          12
+bspc config split_ratio          0.5
+#0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+#change default colors:
+
+#bspc config active_border_color \#60c6dd
+bspc config focused_border_color \#60c6dd
+
+
+#AutoStart applictions
+nvidia-settings --assign CurrentMetaMode="$(xrandr | sed -nr '/(\S+) connected (primary )?[0-9]+x[0-9]+(\+\S+).*/{ s//\1: nvidia-auto-select \3 { ForceCompositionPipeline = On }, /; H }; ${ g; s/\n//g; s/, $//; p }')" & #turn vsync on
+sxhkd &
+picom --config ~/.config/picom/picom.conf &
+nitrogen --set-scaled --head=1 ~/backgrounds/girl-pylons-night.jpg && nitrogen --set-scaled --head=DP-2 ~/backgrounds/girl-pylons-night.jpg & #set background for DP-2
+dunst &
+~/.config/polybar/launch.sh &
+pacmd set-default-sink 1 &
+#media control daemon so player can be shifted (bound to F11 in sxhkd)
+platerctld daemon &
+~/polybar-scripts/OPD-start-commands.sh &

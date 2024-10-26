@@ -1,0 +1,13 @@
+window {
+location:	 west;
+anchor:		 south;
+height:		 50%;
+width:		 18%;
+orientation:     horizontal;
+children:	 [mainbox];
+}
+
+ mainbox {
+spacing:  0.5em;
+children: [ entry,listview,sidebar ];
+}

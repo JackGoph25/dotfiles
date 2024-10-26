@@ -1,0 +1,6 @@
+window:
+  opacity: 0.9
+  blur: true
+  title: "Alacritty"
+  dynamic_title: false
+  
